@@ -171,9 +171,12 @@ var route = match_route(routes, document.location.href);
 
 if(route && route.func){
   chrome.extension.sendRequest({}, function(response){});
-  localStorage['current_route'] = true;
   
-  if(localStorage[route.name] == "false"){
+  
+  if(localStorage[route.name] == "on"){
+    localStorage['current_route'] = "on";
+  }else{    
+    localStorage['current_route'] = "off";
     route.func().off();
   }
   
@@ -187,16 +190,16 @@ chrome.extension.onConnect.addListener(function(port) {
     
     if(msg.comments){
       // comments turned on
+      console.log('in comments.js: the checkbox changed to checked');
       route.func().on()
-      localStorage[route.name] = true;
-      localStorage['current_route'] = true;
-      console.log(msg.comments)
+      localStorage[route.name] = "on";
+      localStorage['current_route'] = "on";
     }else{
       // comments turned off
+      console.log('in comments.js: the checkbox changed to unchecked');
       route.func().off()
-      localStorage[route.name] = false;
-      localStorage['current_route'] = false;
-      console.log(msg.comments)
+      localStorage[route.name] = "off";
+      localStorage['current_route'] = "off";
     }
   });
 });

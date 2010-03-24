@@ -39,23 +39,17 @@
       chrome.tabs.getSelected(null, function(tab){ 
         port = chrome.tabs.connect(tab.id, {name: "comments_channel"});
       });
-      
-      console.log(localStorage['current_route']);
-      
-      var initial_state;
-      
-      if(localStorage['current_route'] == "false"){
-        initial_state = "off"
-      }else{
-        initial_state = "on"
-      }
   	  
-  		$('#checkOne').iCheckbox(initial_state);
+  		$('#checkOne').iCheckbox(localStorage['current_route']);
 		  
   		$('#checkOne').change(function(e){
   		  if(this.checked){
+  		    localStorage['current_route'] = "on"
+  		    console.log('checkOne changed to checked');
   		    port.postMessage({comments: true});
   		  }else{
+  		    localStorage['current_route'] = "off"
+  		    console.log('checkOne changed to not checked')
 		      port.postMessage({comments: false});
   		  }
   		});
