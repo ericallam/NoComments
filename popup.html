@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+			 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	<style type="text/css">
+	.iCheckbox_container {
+		height:27px;
+		width:94px;
+		position: relative;
+		overflow: hidden;
+	}
+	.iCheckbox_switch {
+		height:27px;
+		width:94px;
+		background-image:url(images/iphone_switch.png); /* your actual slider image */
+		background-repeat:none;
+		background-position:0px;
+	}
+	.iCheckbox_checkbox { /* this is kinda moot since it gets hidden, but here to let you know it exists */
+	}
+
+	.iCheckbox_two_checkbox { /* this is kinda moot since it gets hidden, but here to let you know it exists */
+	}
+	/*
+	* below are styles to just pretty up the demo page... they have nothing to do with iCheckbox.
+	*/
+
+	</style>
+	<script src="jquery.js" type="text/javascript"></script>
+	<script src="jquery.iCheckbox.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	      
+
+  	// init the checkboxes at dom ready
+  	$(document).ready(function(){
+  	  
+  	  
+      chrome.tabs.getSelected(null, function(tab){ 
+        port = chrome.tabs.connect(tab.id, {name: "comments_channel"});
+      });
+      
+      console.log(localStorage['current_route']);
+      
+      var initial_state;
+      
+      if(localStorage['current_route'] == "false"){
+        initial_state = "off"
+      }else{
+        initial_state = "on"
+      }
+  	  
+  		$('#checkOne').iCheckbox(initial_state);
+		  
+  		$('#checkOne').change(function(e){
+  		  if(this.checked){
+  		    port.postMessage({comments: true});
+  		  }else{
+		      port.postMessage({comments: false});
+  		  }
+  		});
+  	});
+	
+
+	
+	</script>
+</head>
+<body>
+  
+<input type="checkbox" id="checkOne" />
+
+</body>
+</html>

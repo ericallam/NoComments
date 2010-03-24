@@ -1,0 +1,22 @@
+{
+  "name": "No Comments",
+  "version": "1.0",
+  "description": "The first extension that I made.",
+  "background_page": "background.html",
+  "page_action" :
+  {
+    "default_icon" : "icon-19.png",
+    "default_title" : "Comments Blocked",
+    "popup": "popup.html"
+  },
+  "permissions" : [
+    "tabs"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*"],
+      "js": ["jquery.js", "comments.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
