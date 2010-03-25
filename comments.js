@@ -1,3 +1,71 @@
+var template = function(){
+  return {
+    off: function(){
+      
+    },
+    on: function(){
+      
+    }
+  }
+}
+
+var gawker_main = function(){
+  return {
+    off: function(){
+      $('.pm_comments').hide()
+    },
+    on: function(){
+      $('.pm_comments').show()
+    }
+  }
+}
+
+var gawker = function(){
+  return {
+    off: function(){
+      $('#comments').hide();
+    },
+    on: function(){
+      $('#comments').show();
+    }
+  }
+}
+
+var aint = function(){
+  return {
+    off: function(){
+      $('.block-talkback_story').hide();
+    },
+    on: function(){
+      $('.block-talkback_story').show();
+    }
+  }
+}
+
+var cnn = function(){
+  return {
+    off: function(){
+      $('#dsq-content').hide();
+    },
+    on: function(){
+      $('#dsq-content').show();
+    }
+  }
+}
+
+var digg = function(){
+  return {
+    off: function(){
+      $('.comments').hide()
+      $('#comments').hide()
+    },
+    on: function(){
+      $('.comments').show()
+      $('#comments').show()
+    }
+  }
+}
+
 var hacker_news_main = function(){
   return {
     off: function(){
@@ -128,11 +196,6 @@ var routes = [
     name: 'metafilter'
   },
   {
-    regexp: /reddit\.com/,
-    func: reddit_main,
-    name: 'reddit'
-  },
-  {
     regexp: /reddit\.com\/r\/AskReddit\/comments/,
     func: false,
     name: 'ask_reddit'
@@ -140,6 +203,11 @@ var routes = [
   {
     regexp: /reddit\.com\/r\/[\w]\/comments/,
     func: reddit_comments,
+    name: 'reddit'
+  },
+  {
+    regexp: /reddit\.com/,
+    func: reddit_main,
     name: 'reddit'
   },
   {
@@ -156,7 +224,43 @@ var routes = [
     regexp: /youtube\.com\/watch\?/,
     func: youtube_video,
     name: 'youtube'
+  },
+  {
+    regexp: /digg\.com\/[\w]+\/[\w_]+\/?$/,
+    func: digg,
+    name: 'digg'
+  },
+  {
+    regexp: /digg\.com\/[\w]+\/?$/,
+    func: digg,
+    name: 'digg'
+  },
+  {
+    regexp: /digg\.com/,
+    func: digg,
+    name: 'digg'
+  },
+  {
+    regexp: /cnn\.com/,
+    func: cnn,
+    name: 'cnn'
+  },
+  {
+    regexp: /aintitcool\.com\/node/,
+    func: aint,
+    name: 'aint'
+  },
+  {
+    regexp: /(deadspin|gawker|kotaku|jezebel|io9|jalopnik|gizmodo|lifehacker)\.com\/[\d]+/,
+    func: gawker,
+    name: 'gawker'
+  },
+  {
+    regexp: /(deadspin|gawker|kotaku|jezebel|io9|jalopnik|gizmodo|lifehacker)\.com/,
+    func: gawker_main,
+    name: 'gawker'
   }
+
 ]
 
 var match_route = function(r, h){
@@ -172,10 +276,11 @@ var route = match_route(routes, document.location.href);
 if(route && route.func){
   chrome.extension.sendRequest({}, function(response){});
   
+  console.log(route);
   
   if(localStorage[route.name] == "on"){
     localStorage['current_route'] = "on";
-  }else{    
+  }else{
     localStorage['current_route'] = "off";
     route.func().off();
   }

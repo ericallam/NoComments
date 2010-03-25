@@ -5,7 +5,7 @@
   "background_page": "background.html",
   "page_action" :
   {
-    "default_icon" : "icon-19.png",
+    "default_icon" : "NoComments.png",
     "default_title" : "Comments Blocked",
     "popup": "popup.html"
   },
