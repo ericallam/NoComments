@@ -9,6 +9,30 @@ var template = function(){
   }
 }
 
+var gothamist_main = function(){
+  return {
+    off: function(){
+      $('.entry-meta-comments').hide()
+    },
+    on: function(){
+      $('.entry-meta-comments').show()
+    }
+  }
+}
+
+
+
+var gothamist_topic = function(){
+  return {
+    off: function(){
+      $('#comments-list').hide()
+    },
+    on: function(){
+      $('#comments-list').show()
+    }
+  }
+}
+
 var gawker_main = function(){
   return {
     off: function(){
@@ -259,6 +283,16 @@ var routes = [
     regexp: /(deadspin|gawker|kotaku|jezebel|io9|jalopnik|gizmodo|lifehacker)\.com/,
     func: gawker_main,
     name: 'gawker'
+  },
+  {
+    regexp: /gothamist\.com\/[\d]+\/[\d]+/,
+    func: gothamist_topic,
+    name: 'gothamist'
+  },
+  {
+    regexp: /gothamist\.com/,
+    func: gothamist_main,
+    name: 'gothamist'
   }
 
 ]
