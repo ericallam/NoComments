@@ -1,11 +1,12 @@
 {
   "name": "No Comments",
   "version": "1.0",
-  "description": "The first extension that I made.",
+  "description": "Make the web quieter by turning comments off.",
   "background_page": "background.html",
+  "icons": { "48": "IconMedium.png", "128": "IconLarge.png" },
   "page_action" :
   {
-    "default_icon" : "NoComments.png",
+    "default_icon" : "popup_icon.png",
     "default_title" : "Comments Blocked",
     "popup": "popup.html"
   },

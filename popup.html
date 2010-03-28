@@ -30,27 +30,43 @@
 	<script src="jquery.js" type="text/javascript"></script>
 	<script src="jquery.iCheckbox.js" type="text/javascript"></script>
 	<script type="text/javascript">
-	      
+	  
+	  var port_open = true;
 
   	// init the checkboxes at dom ready
   	$(document).ready(function(){
-  	  
+  	  var port;
   	  
       chrome.tabs.getSelected(null, function(tab){ 
         port = chrome.tabs.connect(tab.id, {name: "comments_channel"});
+        
+        port.onDisconnect.addListener(function(msg) {
+          port_open = false;
+        });
       });
+      
+
   	  
-  		$('#checkOne').iCheckbox(localStorage['current_route']);
+  	  if(localStorage['current_route'] == "on"){
+  	    $('#checkOne').iCheckbox("on");
+  	  }else{
+  	    $('#checkOne').iCheckbox();
+  	  }
 		  
   		$('#checkOne').change(function(e){
   		  if(this.checked){
-  		    localStorage['current_route'] = "on"
-  		    console.log('checkOne changed to checked');
-  		    port.postMessage({comments: true});
+  		    if(localStorage['current_route'] == "off"){
+    		    localStorage['current_route'] = "on"
+    		    console.log('checkOne changed to checked');
+    		    if (port_open) {port.postMessage({comments: true})}
+  		    }
+
   		  }else{
-  		    localStorage['current_route'] = "off"
-  		    console.log('checkOne changed to not checked')
-		      port.postMessage({comments: false});
+  		    if(localStorage['current_route'] == 'on'){
+    		    localStorage['current_route'] = "off"
+    		    console.log('checkOne changed to not checked')
+  		      if (port_open) {port.postMessage({comments: false})}
+  		    }
   		  }
   		});
   	});

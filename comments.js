@@ -9,6 +9,223 @@ var template = function(){
   }
 }
 
+var latimes = function(){
+  return {
+    off: function(){
+      var comments = $('#gallery-subcontent');
+      if (comments.length > 0) {comments.hide()};
+    },
+    on: function(){
+      var comments = $('#gallery-subcontent');
+      if (comments.length > 0) {comments.show()};
+    }
+  }
+}
+
+
+
+var huff = function(){
+  return {
+    off: function(){
+      var comments_header = $('#comments-header');
+      if (comments_header.length > 0) {comments_header.parent().hide()};
+      var comment_badge = $('.badge_v2_comments')
+      if (comment_badge.length > 0) {comment_badge.parent().hide()};
+    },
+    on: function(){
+      var comments_header = $('#comments-header');
+      if (comments_header.length > 0) {comments_header.parent().show()};
+      var comment_badge = $('.badge_v2_comments')
+      if (comment_badge.length > 0) {comment_badge.parent().show()};
+    }
+  }
+}
+
+var reuters = function(){
+  return {
+    off: function(){
+      var comments = $('.articleComments');
+      if (comments.length > 0) {comments.hide()};
+      var comment_tab = $(".tabs > ul > li > a[href^='/article/comments']");
+      if (comment_tab.length > 0) {comment_tab.parent().hide()};
+    },
+    on: function(){
+      var comments = $('.articleComments');
+      if (comments.length > 0) {comments.show()};
+      var comment_tab = $(".tabs > ul > li > a[href^='/article/comments']");
+      if (comment_tab.length > 0) {comment_tab.parent().show()};
+    }
+  }
+}
+
+var usatoday = function(){
+  return {
+    off: function(){
+      var comments = $('.uslComments');
+      if (comments.length > 0) {comments.hide()};
+    },
+    on: function(){
+      var comments = $('.uslComments');
+      if (comments.length > 0) {comments.show()};
+    }
+  }
+}
+
+var cbcca = function(){
+  return {
+    off: function(){
+      var comments = $('#socialcomments');
+      if (comments.length > 0) {comments.hide()};
+    },
+    on: function(){
+      var comments = $('#socialcomments');
+      if (comments.length > 0) {comments.show()};
+    }
+  }
+}
+
+var slashdot = function(){
+  return {
+    off: function(){
+      var comments = $('.a2commentwrap');
+      if (comments) {comments.hide()};
+      var commentcnt = $('.commentcnt');
+      if (commentcnt.length > 0) {commentcnt.hide()};
+    },
+    on: function(){
+      var comments = $('.a2commentwrap');
+      if (comments.length > 0) {comments.show()};
+      var commentcnt = $('.commentcnt');
+      if (commentcnt.length > 0) {commentcnt.show()};
+    }
+  }
+}
+
+
+
+var gametrailers = function(){
+  return {
+    off: function(){
+      var comments = $('.comment_full_container');
+      if (comments.length > 0) {comments.hide()};
+      var comment_link = $("a[href='#comments_top']:first")
+      if (comment_link.length > 0) {comment_link.parent().hide()};
+    },
+    on: function(){
+      var comments = $('.comment_full_container');
+      if (comments.length > 0) {comments.show()};
+      var comment_link = $("a[href='#comments_top']:first")
+      if (comment_link.length > 0) {comment_link.parent().show()};
+    }
+  }
+}
+
+
+
+var lvrj = function(){
+  return {
+    off: function(){
+      $('#commenting').parents('table:first').hide()      
+    },
+    on: function(){
+      $('#commenting').parents('table:first').show()
+    }
+  }
+}
+
+
+
+var slate = function(){
+  return {
+    off: function(){
+      $('#js_kit_cntr').hide();
+      $('#comments_button').hide();
+    },
+    on: function(){
+      $('#js_kit_cntr').show();
+      $('#comments_button').show();
+    }
+  }
+}
+
+
+
+var yahoo_news = function(){
+  return {
+    off: function(){
+      var comments = $('#mwpphu-container');
+      if (comments.length > 0) {comments.hide()};
+      var form = $('.mwpphu-post-form')
+      if (form.length > 0) {form.hide()};
+    },
+    on: function(){
+      var comments = $('#mwpphu-container');
+      if (comments.length > 0) {comments.show()};
+      var form = $('.mwpphu-post-form')
+      if (form.length > 0) {form.show()};
+    }
+  }
+}
+
+var cracked = function(){
+  return {
+    off: function(){
+      var comments_section = $('#comments_section');
+      if (comments_section.length > 0) { comments_section.hide() };
+    },
+    on: function(){
+      var comments_section = $('#comments_section');
+      if (comments_section.length > 0) { comments_section.show() }
+    }
+  }
+}
+
+var yahoo_buzz_main = function(){
+  return {
+    off: function(){
+      $('.articleBottomContainer').find('a:first').hide();
+    },
+    on: function(){
+      $('.articleBottomContainer').find('a:first').show();
+    }
+  }
+}
+
+var yahoo_buzz = function(){
+  return {
+    off: function(){
+      $('#articleTabsContainer').hide();
+    },
+    on: function(){
+      $('#articleTabsContainer').show()
+    }
+  }
+}
+
+var nytimes_article = function(){
+  return {
+    off: function(){
+      $('#commentsWell').hide();
+    },
+    on: function(){
+      $('#commentsWell').show()
+    }
+  }
+}
+
+var techcrunch_article = function(){
+  return {
+    off: function(){
+      $('#comments_area').hide()
+      $('#addcomment').hide()
+    },
+    on: function(){
+      $('#comments_area').show()
+      $('#addcomment').show()
+    }
+  }
+}
+
 var gothamist_main = function(){
   return {
     off: function(){
@@ -204,97 +421,39 @@ var do_nothing = function(){
 }
 
 var routes = [
-  {
-    regexp: /(ask|projects|music|jobs|podcast|metatalk)\.metafilter\.com/,
-    func: false,
-    name: 'other_metafilter'
-  },
-  {
-    regexp: /metafilter\.com\/$/,
-    func: metafilter_main,
-    name: 'metafilter'
-  },
-  {
-    regexp: /metafilter\.com\/[\d]+/,
-    func: metafilter_topic,
-    name: 'metafilter'
-  },
-  {
-    regexp: /reddit\.com\/r\/AskReddit\/comments/,
-    func: false,
-    name: 'ask_reddit'
-  },
-  {
-    regexp: /reddit\.com\/r\/[\w]\/comments/,
-    func: reddit_comments,
-    name: 'reddit'
-  },
-  {
-    regexp: /reddit\.com/,
-    func: reddit_main,
-    name: 'reddit'
-  },
-  {
-    regexp: /news\.ycombinator\.com\/item/,
-    func: hacker_news_topic,
-    name: 'hacker_news'
-  },
-  {
-    regexp: /news\.ycombinator\.com\//,
-    func: hacker_news_main,
-    name: 'hacker_news'
-  },
-  {
-    regexp: /youtube\.com\/watch\?/,
-    func: youtube_video,
-    name: 'youtube'
-  },
-  {
-    regexp: /digg\.com\/[\w]+\/[\w_]+\/?$/,
-    func: digg,
-    name: 'digg'
-  },
-  {
-    regexp: /digg\.com\/[\w]+\/?$/,
-    func: digg,
-    name: 'digg'
-  },
-  {
-    regexp: /digg\.com/,
-    func: digg,
-    name: 'digg'
-  },
-  {
-    regexp: /cnn\.com/,
-    func: cnn,
-    name: 'cnn'
-  },
-  {
-    regexp: /aintitcool\.com\/node/,
-    func: aint,
-    name: 'aint'
-  },
-  {
-    regexp: /(deadspin|gawker|kotaku|jezebel|io9|jalopnik|gizmodo|lifehacker)\.com\/[\d]+/,
-    func: gawker,
-    name: 'gawker'
-  },
-  {
-    regexp: /(deadspin|gawker|kotaku|jezebel|io9|jalopnik|gizmodo|lifehacker)\.com/,
-    func: gawker_main,
-    name: 'gawker'
-  },
-  {
-    regexp: /gothamist\.com\/[\d]+\/[\d]+/,
-    func: gothamist_topic,
-    name: 'gothamist'
-  },
-  {
-    regexp: /gothamist\.com/,
-    func: gothamist_main,
-    name: 'gothamist'
-  }
-
+  { regexp: /(ask|projects|music|jobs|podcast|metatalk)\.metafilter\.com/, func: false, name: 'other_metafilter' },
+  { regexp: /metafilter\.com\/$/, func: metafilter_main, name: 'metafilter' },
+  { regexp: /metafilter\.com\/[\d]+/, func: metafilter_topic, name: 'metafilter' },
+  { regexp: /reddit\.com\/r\/AskReddit\/comments/, func: false, name: 'ask_reddit' },
+  { regexp: /reddit\.com\/r\/[\w]\/comments/, func: reddit_comments, name: 'reddit' },
+  { regexp: /reddit\.com/, func: reddit_main, name: 'reddit' },
+  { regexp: /news\.ycombinator\.com\/item/, func: hacker_news_topic, name: 'hacker_news' },
+  { regexp: /news\.ycombinator\.com\//, func: hacker_news_main, name: 'hacker_news' },
+  { regexp: /youtube\.com\/watch\?/, func: youtube_video, name: 'youtube' },
+  { regexp: /digg\.com\/[\w]+\/[\w_]+\/?$/, func: digg, name: 'digg' },
+  { regexp: /digg\.com\/[\w]+\/?$/, func: digg, name: 'digg' },
+  { regexp: /digg\.com/, func: digg, name: 'digg' },
+  { regexp: /cnn\.com/, func: cnn, name: 'cnn' },
+  { regexp: /aintitcool\.com\/node/, func: aint, name: 'aint' },
+  { regexp: /(deadspin|gawker|kotaku|jezebel|io9|jalopnik|gizmodo|lifehacker)\.com\/[\d]+/, func: gawker, name: 'gawker' },
+  { regexp: /(deadspin|gawker|kotaku|jezebel|io9|jalopnik|gizmodo|lifehacker)\.com/, func: gawker_main, name: 'gawker' },
+  { regexp: /gothamist\.com\/[\d]+\/[\d]+/, func: gothamist_topic, name: 'gothamist' },
+  { regexp: /gothamist\.com/, func: gothamist_main, name: 'gothamist' },
+  { regexp: /techcrunch\.com\/[\d]+/, func: techcrunch_article, name: 'techcrunch' },
+  { regexp: /nytimes\.com\/[\d]+/, func: nytimes_article, name: 'nytimes' },
+  { regexp: /buzz\.yahoo\.com\/article/, func: yahoo_buzz, name: 'yahoo_buzz' },
+  { regexp: /buzz\.yahoo\.com\/?$/, func: yahoo_buzz_main, name: 'yahoo_buzz' },
+  { regexp: /cracked\.com/, func: cracked, name: 'cracked' },
+  { regexp: /news\.yahoo\.com/, func: yahoo_news, name: 'yahoo_news' },
+  { regexp: /slate\.com\/id/, func: slate, name: 'slate' },
+  { regexp: /lvrj\.com\/[\w]+/, func: lvrj, name: 'lvrj' },
+  { regexp: /gametrailers\.com\/video/, func: gametrailers, name: 'gametrailers' },
+  { regexp: /slashdot\.org/, func: slashdot, name: 'slashdot'},
+  { regexp: /cbc\.ca/, func: cbcca, name: 'cbcca'},
+  { regexp: /usatoday\.com/, func: usatoday, name: 'usatoday'},
+  { regexp: /reuters\.com/, func: reuters, name: 'reuters'},
+  { regexp: /huffingtonpost\.com\/[\d]+/, func: huff, name: 'huff'},
+  { regexp: /latimes\.com\/[\w]+/, func: latimes, name: 'latimes'}
 ]
 
 var match_route = function(r, h){
