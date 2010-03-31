@@ -9,6 +9,75 @@ var template = function(){
   }
 }
 
+var komo = function(){
+  return {
+    off: function(){
+      var comment_form = $('#commentform');
+      if (comment_form.length > 0) {comment_form.hide()};
+    },
+    on: function(){
+      var comment_form = $('#commentform');
+      if (comment_form.length > 0) {comment_form.show()};
+    }
+  }
+}
+
+var seattletimes = function(){
+  return {
+    off: function(){
+      $('.gc_teasers_body').hide();
+      $('.gc_teasers_label').hide();
+      $('.gc_teasers_links').hide();
+      $('.note:first a:first').hide();
+    },
+    on: function(){
+      $('.gc_teasers_body').show();
+      $('.gc_teasers_label').show();
+      $('.gc_teasers_links').show();
+      $('.note:first a:first').show();
+    }
+  }
+}
+
+var thirtyseven = function(){
+  return {
+    off: function(){
+      $('#commentsbg').hide();
+      $('#comment_form').hide();
+    },
+    on: function(){
+      $('#commentsbg').show();
+      $('#comment_form').show();
+    }
+  }
+}
+
+var nypost = function(){
+  return {
+    off: function(){
+      var comment_block = $('#comments_block');
+      if (comment_block.length > 0) {comment_block.hide()};
+    },
+    on: function(){
+      var comment_block = $('#comments_block');
+      if (comment_block.length > 0) {comment_block.show()};
+    }
+  }
+}
+
+var timesofmalta = function(){
+  return {
+    off: function(){
+      var comments = $('.comments_panel');
+      if (comments.length > 0) {comments.hide()};
+    },
+    on: function(){
+      var comments = $('.comments_panel');
+      if (comments.length > 0) {comments.show()};
+    }
+  }
+}
+
 var latimes = function(){
   return {
     off: function(){
@@ -453,7 +522,12 @@ var routes = [
   { regexp: /usatoday\.com/, func: usatoday, name: 'usatoday'},
   { regexp: /reuters\.com/, func: reuters, name: 'reuters'},
   { regexp: /huffingtonpost\.com\/[\d]+/, func: huff, name: 'huff'},
-  { regexp: /latimes\.com\/[\w]+/, func: latimes, name: 'latimes'}
+  { regexp: /latimes\.com\/[\w]+/, func: latimes, name: 'latimes'},
+  { regexp: /timesofmalta\.com\/articles/, func: timesofmalta, name: 'timesofmalta'},
+  { regexp: /nypost\.com\/p/, func: nypost, name: 'nypost'},
+  { regexp: /37signals\.com\/svn\/posts/, func: thirtyseven, name: 'thirtyseven'},
+  { regexp: /seattletimes\.nwsource\.com\/html/, func: seattletimes, name: 'seattletimes'},
+  { regexp: /komonews\.com\/[\w]+/, func: komo, name: 'komo'}
 ]
 
 var match_route = function(r, h){
@@ -468,8 +542,6 @@ var route = match_route(routes, document.location.href);
 
 if(route && route.func){
   chrome.extension.sendRequest({}, function(response){});
-  
-  console.log(route);
   
   if(localStorage[route.name] == "on"){
     localStorage['current_route'] = "on";
@@ -487,14 +559,10 @@ chrome.extension.onConnect.addListener(function(port) {
   port.onMessage.addListener(function(msg) {
     
     if(msg.comments){
-      // comments turned on
-      console.log('in comments.js: the checkbox changed to checked');
       route.func().on()
       localStorage[route.name] = "on";
       localStorage['current_route'] = "on";
     }else{
-      // comments turned off
-      console.log('in comments.js: the checkbox changed to unchecked');
       route.func().off()
       localStorage[route.name] = "off";
       localStorage['current_route'] = "off";
