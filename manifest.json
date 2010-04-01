@@ -1,6 +1,6 @@
 {
   "name": "No Comments",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Make the web quieter by turning comments off.",
   "background_page": "background.html",
   "icons": { "48": "IconMedium.png", "128": "IconLarge.png" },
