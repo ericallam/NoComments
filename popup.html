@@ -4,31 +4,111 @@
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 	<style type="text/css">
-	.iCheckbox_container {
-		height:27px;
-		width:94px;
-		position: relative;
-		overflow: hidden;
-	}
-	.iCheckbox_switch {
-		height:27px;
-		width:94px;
-		background-image:url(images/iphone_switch.png); /* your actual slider image */
-		background-repeat:none;
-		background-position:0px;
-	}
-	.iCheckbox_checkbox { /* this is kinda moot since it gets hidden, but here to let you know it exists */
-	}
+.iPhoneCheckContainer, .iPhoneCheckContainer label {
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+}
 
-	.iCheckbox_two_checkbox { /* this is kinda moot since it gets hidden, but here to let you know it exists */
-	}
-	/*
-	* below are styles to just pretty up the demo page... they have nothing to do with iCheckbox.
-	*/
+/* line 684, ../../../app/stylesheets/partials/_design.sass */
+.iPhoneCheckDisabled {
+  filter: alpha(opacity=50);
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+  opacity: 0.5;
+}
+
+/* line 691, ../../../app/stylesheets/partials/_design.sass */
+.iPhoneCheckContainer {
+  position: relative;
+  height: 27px;
+  cursor: pointer;
+  overflow: hidden;
+}
+/* line 697, ../../../app/stylesheets/partials/_design.sass */
+.iPhoneCheckContainer input {
+  position: absolute;
+  top: 5px;
+  left: 30px;
+  filter: alpha(opacity=0);
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  opacity: 0;
+}
+/* line 706, ../../../app/stylesheets/partials/_design.sass */
+.iPhoneCheckContainer label {
+  white-space: nowrap;
+  font-size: 17px;
+  line-height: 17px;
+  font-weight: bold;
+  font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: block;
+  height: 27px;
+  position: absolute;
+  width: auto;
+  top: 0;
+  padding-top: 5px;
+  overflow: hidden;
+}
+
+/* line 724, ../../../app/stylesheets/partials/_design.sass */
+label.iPhoneCheckLabelOn {
+  color: #fff;
+  background: url(/images/toggle/on.png) no-repeat;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
+  left: 0;
+  padding-top: 5px;
+}
+/* line 731, ../../../app/stylesheets/partials/_design.sass */
+label.iPhoneCheckLabelOn span {
+  padding-left: 8px;
+}
+/* line 734, ../../../app/stylesheets/partials/_design.sass */
+label.iPhoneCheckLabelOff {
+  color: #8B8B8B;
+  background: url(/images/toggle/off.png) no-repeat right 0;
+  text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.6);
+  text-align: right;
+  right: 0;
+}
+/* line 741, ../../../app/stylesheets/partials/_design.sass */
+label.iPhoneCheckLabelOff span {
+  padding-right: 8px;
+}
+
+/* line 745, ../../../app/stylesheets/partials/_design.sass */
+.iPhoneCheckHandle {
+  display: block;
+  height: 27px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  background: url(/images/toggle/slider_left.png) no-repeat;
+  padding-left: 3px;
+}
+
+/* line 757, ../../../app/stylesheets/partials/_design.sass */
+.iPhoneCheckHandleRight {
+  height: 100%;
+  width: 100%;
+  padding-right: 3px;
+  background: url(/images/toggle/slider_right.png) no-repeat right 0;
+}
+
+/* line 764, ../../../app/stylesheets/partials/_design.sass */
+.iPhoneCheckHandleCenter {
+  height: 100%;
+  width: 100%;
+  background: url(/images/toggle/slider_center.png);
+}
 
 	</style>
 	<script src="jquery.js" type="text/javascript"></script>
-	<script src="jquery.iCheckbox.js" type="text/javascript"></script>
+	<script src="iphone-style-checkboxes.js" type="text/javascript"></script>
 	<script type="text/javascript">
 	  
 	  var port_open = true;
@@ -48,10 +128,14 @@
 
   	  
   	  if(localStorage['current_route'] == "on"){
-  	    $('#checkOne').iCheckbox("on");
+  	    $('#checkOne').attr('checked', true);
+  	    // $('#checkOne').iCheckbox("on");
   	  }else{
-  	    $('#checkOne').iCheckbox();
+  	    $('#checkOne').attr('checked', false);
+        // $('#checkOne').iCheckbox();
   	  }
+  	  
+  	  $('#checkOne').iphoneStyle()
 		  
   		$('#checkOne').change(function(e){
   		  if(this.checked){
