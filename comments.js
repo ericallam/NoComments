@@ -481,6 +481,17 @@ var youtube_video = function(){
   }
 }
 
+var guardian = function(){
+  return {
+    off: function(){
+	  $('#discussion-comments').hide();
+	},
+	on: function(){
+	  $('#discussion-comments').show();
+    }
+  }
+}
+
 var do_nothing = function(){
   // do nothing
   return {
@@ -527,7 +538,8 @@ var routes = [
   { regexp: /nypost\.com\/p/, func: nypost, name: 'nypost'},
   { regexp: /37signals\.com\/svn\/posts/, func: thirtyseven, name: 'thirtyseven'},
   { regexp: /seattletimes\.nwsource\.com\/html/, func: seattletimes, name: 'seattletimes'},
-  { regexp: /komonews\.com\/[\w]+/, func: komo, name: 'komo'}
+  { regexp: /komonews\.com\/[\w]+/, func: komo, name: 'komo'},
+  { regexp: /guardian\.co\.uk/, func: guardian, name: 'guardian'}
 ]
 
 var match_route = function(r, h){

@@ -126,31 +126,32 @@ label.iPhoneCheckLabelOff span {
       });
       
 
-  	  
-  	  if(localStorage['current_route'] == "on"){
-  	    $('#checkOne').attr('checked', true);
-  	    // $('#checkOne').iCheckbox("on");
-  	  }else{
-  	    $('#checkOne').attr('checked', false);
-        // $('#checkOne').iCheckbox();
-  	  }
-  	  
+	  chrome.extension.sendRequest({method: "get_current_route"}, function(response){
+		if(response.current_route == "on")
+  	      $('#checkOne').attr('checked', true);
+		else
+  	      $('#checkOne').attr('checked', false);
+      });
+
   	  $('#checkOne').iphoneStyle()
 		  
-  		$('#checkOne').change(function(e){
+ 		$('#checkOne').change(function(e){
   		  if(this.checked){
-  		    if(localStorage['current_route'] == "off"){
-    		    localStorage['current_route'] = "on"
+	        chrome.extension.sendRequest({method: "get_current_route"}, function(response){
+			  if(response.current_route == "off"){
+			    chrome.extension.sendRequest({method: "set_current_route", status: "on"});
     		    console.log('checkOne changed to checked');
     		    if (port_open) {port.postMessage({comments: true})}
-  		    }
-
+			  }	
+  		    });
   		  }else{
-  		    if(localStorage['current_route'] == 'on'){
-    		    localStorage['current_route'] = "off"
+	        chrome.extension.sendRequest({method: "get_current_route"}, function(response){
+			  if(response.current_route == "on"){
+			    chrome.extension.sendRequest({method: "set_current_route", status: "off"});
     		    console.log('checkOne changed to not checked')
-  		      if (port_open) {port.postMessage({comments: false})}
-  		    }
+				if (port_open) {port.postMessage({comments: false})}
+			  }	
+  		    });
   		  }
   		});
   	});
